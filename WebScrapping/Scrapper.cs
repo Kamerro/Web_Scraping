@@ -13,12 +13,11 @@ namespace WebScrapping
     {
         private string URL
             = "https://unece.org/trade/cefact/unlocode-code-list-country-and-territory";
-        public List<Cities> cities = new List<Cities>();
         /// <summary>
         /// country shortcut for Poland = PL. Germany = DE etc
         /// </summary>
         /// <param name="county_shortcut"></param>
-        public void getCountry(string country_shortcut = "PL")
+        public IEnumerable<Cities> getCountry(string country_shortcut = "PL")
         {
             var web = new HtmlWeb();
             var document = web.Load(URL);
@@ -38,14 +37,8 @@ namespace WebScrapping
                 var city_rows = obj.QuerySelectorAll("td");
                 Cities city = new Cities();
                 city.name = city_rows[3].InnerText.DeleteHardSpace();
-                cities.Add(city);
+                yield return city;
             }
-
-            foreach(Cities city in cities)
-            {
-                Console.WriteLine(city.name);
-            }
-
         }
     }
 
