@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +22,8 @@ namespace WebScraping
             {
                 Console.WriteLine(city.name);
             }
+            var json = JsonConvert.SerializeObject(cities);
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "Miasta.txt", json);
             Console.ReadLine();
         }
     }
